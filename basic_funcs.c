@@ -39,3 +39,24 @@ int* get_random_list(int len, int max, int min){
 
 	return  list;
 }
+
+char** get_random_str_list(char* letters, int nb_letters, int len_min, int len_max, int nb_str){
+	char** list = malloc(sizeof(char*)*nb_str);
+	int len_str;
+	for (int i=0;i<nb_str;i++){
+		len_str = rand()%(len_max-len_min)+len_min;
+		list[i] = malloc(sizeof(char)*(len_str+1));
+		for (int j=0;j<len_str;j++){
+			list[i][j] = letters[rand()%nb_letters];
+		}
+		list[i][len_str] = '\0';
+	}
+	return list;
+}
+
+void free_str_list(char** list, int len){
+	for (int i=0;i<len;i++){
+		free(list[i]);
+	}
+	free(list);
+}
