@@ -14,7 +14,7 @@ int main(){
     printf("\n");
 
     int* final_list = hash_sort(list, len);
-    printf("list sorted by my method using an hash table (don't work for numbers < 0)\n");
+    printf("list sorted using an hash table\n");
 	show_list(final_list, len);
     free(final_list);
     printf("\n");
