@@ -28,13 +28,13 @@ void show_list(int* list, int len){
 	printf("\n");
 }
 
-int* get_random_list(int len){
+int* get_random_list(int len, int max, int min){
 
 	int* list = malloc(sizeof(int)*len);
 	if (list==NULL)return list;
 
 	for (int i=0;i<len;i++){
-		list[i] = rand()%200-100;
+		list[i] = rand()%(max-min)+min;
 	}
 
 	return  list;
