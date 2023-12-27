@@ -10,6 +10,28 @@ char check_sort(int* list, int len){
 	return 1;
 }
 
+char check_str_sort(char** list, int len){
+	int j;
+	for (int i=1;i<len;i++){
+		j=0;
+		while (list[i-1][j]==list[i][j] && list[i][j]!='\0'){
+			j++;
+		}
+		if (list[i-1][j]>list[i][j])return 0;
+	}
+	return 1;
+}
+
+void str_shuffle(char** list, int len){
+	char* temp, rand_index = 0;
+	for (int i=0;i<len;i++){
+		rand_index = rand()%len;
+		temp = list[i];
+		list[i] = list[rand_index];
+		list[rand_index] = temp;
+	}	
+}
+
 void shuffle(int* list, int len){
 	int temp = 0, rand_index = 0;
 	for (int i=0;i<len;i++){
@@ -24,6 +46,14 @@ void show_list(int* list, int len){
 	printf("%d",list[0]);
 	for (int i=1;i<len;i++){
 		printf(", %d",list[i]);
+	}
+	printf("\n");
+}
+
+void show_str_list(char** list, int len){
+	printf("%s",list[0]);
+	for (int i=1;i<len;i++){
+		printf(", %s",list[i]);
 	}
 	printf("\n");
 }

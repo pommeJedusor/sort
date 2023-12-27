@@ -39,10 +39,19 @@ int main(){
     for (int i=0; i<26;i++){
         letters[i] = i+'a';
     }
-    char** str_list = get_random_str_list(letters, 26, 3, 10, 5);
-    for (int i=0;i<5;i++){
-        printf("%s\n", str_list[i]);
-    }
+    char** str_list = get_random_str_list(letters, 26, 3, 10, len);
+    show_str_list(str_list, len);
+    printf("\n");
+
+    begin = clock();
+    bogo = str_bogosort(str_list, len);
+    end = clock();
+    time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+    printf("list sorted by bogosort (the best) needed only %d tries\n", bogo);
+    printf("time taken: %f\n",time_spent);
+    printf("\n");
+	show_str_list(str_list, len);
+    printf("\n");
     free_str_list(str_list, 3);
 	return 0;
 }
