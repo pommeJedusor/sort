@@ -4,13 +4,30 @@
 #include "bogosort.h"
 #include "basic_funcs.h"
 #include "hash_sort.h"
+#include "bubble.h"
+
+int* copy_list(int* list, int len){
+    int* new_list = malloc(sizeof(int)*len);
+    for (int i=0;i<len;i++){
+        new_list[i]=list[i];
+    }
+    return new_list;
+}
+
+char** copy_str_list(char** list, int len){
+    char** new_list = malloc(sizeof(char*)*len);
+    for (int i=0;i<len;i++){
+        new_list[i]=list[i];
+    }
+    return new_list;
+}
 
 int main(){
 	srand(time(NULL));
-	int len = 10;
-	int* list = get_random_list(len, 100, -100);
+	int len = 10000;
+	int* list = get_random_list(len, 1000, -1000);
     printf("randomly generated list of len %d\n", len);
-	show_list(list, len);
+	//show_list(list, len);
     printf("\n");
 
     clock_t begin = clock();
@@ -19,39 +36,20 @@ int main(){
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("list sorted using an hash table\n");
     printf("time taken: %f\n",time_spent);
-	show_list(final_list, len);
+	//show_list(final_list, len);
     free(final_list);
     printf("\n");
 
     begin = clock();
-    int bogo = bogosort(list, len);
+    final_list = bubble_sort(copy_list(list, len), len);
     end = clock();
     time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("list sorted by bogosort (the best) needed only %d tries\n", bogo);
+    printf("list sorted using bubble sort\n");
     printf("time taken: %f\n",time_spent);
-	show_list(list, len);
+	//show_list(final_list, len);
+    free(final_list);
+    printf("\n");
+
     free(list);
-    printf("\n");
-
-    printf("generate a list with randomness\n");
-    len = 10;
-    char letters[26];
-    for (int i=0; i<26;i++){
-        letters[i] = i+'a';
-    }
-    char** str_list = get_random_str_list(letters, 26, 3, 10, len);
-    show_str_list(str_list, len);
-    printf("\n");
-
-    begin = clock();
-    bogo = str_bogosort(str_list, len);
-    end = clock();
-    time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("list sorted by bogosort (the best) needed only %d tries\n", bogo);
-    printf("time taken: %f\n",time_spent);
-    printf("\n");
-	show_str_list(str_list, len);
-    printf("\n");
-    free_str_list(str_list, 3);
 	return 0;
 }
